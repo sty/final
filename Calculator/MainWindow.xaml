@@ -1,0 +1,79 @@
+﻿<Window x:Class="Calculator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontWeight" Value="ExtraBold" />
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+        <Style TargetType="TextBlock" x:Key="Large">
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="FontSize" Value="34" />
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0,0,5,5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="159*"/>
+            <ColumnDefinition Width="358*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41"/>
+            <RowDefinition Height="279*"/>
+        </Grid.RowDefinitions>
+        <TextBlock HorizontalAlignment="Left" Width="41" Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="1" Text="{Binding Operator, Mode=OneWay}"  />
+        <TextBlock Style="{StaticResource Large}" DataContext="{Binding Op}"  Grid.ColumnSpan="2" Text="{Binding DisplayText, Mode=OneWay}" Margin="41,0,0,0"  />
+        <ListBox Grid.Row="1" ItemsSource="{Binding Operations}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="{Binding PreviousTotal}" />
+                        <TextBlock Text="{Binding Operator}" />
+                        <TextBlock Text="{Binding Operand}" />
+                        <TextBlock> = </TextBlock>
+                        <TextBlock Text="{Binding Results}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button Command="{Binding Clear}" >C</Button>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding Op.Number}" CommandParameter="7" >7</Button>
+            <Button Grid.Row="1" Grid.Column="1" Command="{Binding Op.Number}" CommandParameter="8"  >8</Button>
+            <Button Grid.Row="1" Grid.Column="2" Command="{Binding Op.Number}" CommandParameter="9" >9</Button>
+            <Button Grid.Row="2" Grid.Column="0" Click="Number_Clicked" >4</Button>
+            <Button Grid.Row="2" Grid.Column="1" Click="Number_Clicked" >5</Button>
+            <Button Grid.Row="2" Grid.Column="2" Click="Number_Clicked" >6</Button>
+            <Button Grid.Row="3" Grid.Column="0" Click="Number_Clicked" >1</Button>
+            <Button Grid.Row="3" Grid.Column="1" Click="Number_Clicked" >2</Button>
+            <Button Grid.Row="3" Grid.Column="2" Click="Number_Clicked" >3</Button>
+            <Button Grid.Row="4" Grid.Column="0" Click="Number_Clicked" >0</Button>
+            <Button Grid.Row="0" Grid.Column="3" Command="{Binding Op.BackSpace}" >bsp</Button>
+            <Button Grid.Row="0" Grid.Column="4" Click="Operator_Clicked" >-</Button>
+            <Button Grid.Row="1" Grid.Column="3" Click="UnaryOperator_Clicked" >sq</Button>
+            <Button Grid.Row="2" Grid.Column="3" Command="{Binding DisplayFactors}"  >factors</Button>
+            <Button Grid.Row="1" Grid.Column="4" Click="Operator_Clicked" >+</Button>
+            <Button Grid.Row="2" Grid.Column="4" Click="Operator_Clicked" >x</Button>
+            <Button Grid.Row="3" Grid.Column="4" Click="Operator_Clicked" >/</Button>
+            <Button Grid.Row="4" Grid.Column="4" Click="UnaryOperator_Clicked" >=</Button>
+        </Grid>
+    </Grid>
+</Window>
